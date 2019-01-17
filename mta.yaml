@@ -7,24 +7,37 @@ modules:
     path: web
     requires:
       - name: APP_UAA
-
+      - name: core_xsjs_api
+        properties:
+          name: core-xsjs-backend
+          url: '~{url}'
+          forwardAuthToken: true
+        group: destinations
   - name: db
     type: hdb
     path: db
     requires:
-     - name: hdi-container
-
+      - name: hdi-container
+  - name: core_xsjs
+    type: nodejs
+    path: core_xsjs
+    provides:
+      - name: core_xsjs_api
+        properties:
+          url: '${default-url}'
+    requires:
+      - name: APP_UAA
+      - name: hdi-container
+      - name: db
 resources:
   - name: APP_UAA
     type: com.sap.xs.uaa-space
     parameters:
       config-path: ./xs-security.json
-
   - name: hdi-container
     parameters:
-       config:
-          schema: hana002
+      config:
+        schema: hana002
     properties:
-       hdi-container-name: ${service-name}
+      hdi-container-name: '${service-name}'
     type: com.sap.xs.hdi-container
-
