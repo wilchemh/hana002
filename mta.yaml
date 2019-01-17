@@ -7,8 +7,24 @@ modules:
     path: web
     requires:
       - name: APP_UAA
+
+  - name: db
+    type: hdb
+    path: db
+    requires:
+     - name: hdi-container
+
 resources:
   - name: APP_UAA
     type: com.sap.xs.uaa-space
     parameters:
       config-path: ./xs-security.json
+
+  - name: hdi-container
+    parameters:
+       config:
+          schema: hana002
+    properties:
+       hdi-container-name: ${service-name}
+    type: com.sap.xs.hdi-container
+
