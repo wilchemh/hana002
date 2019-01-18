@@ -1,8 +1,8 @@
 service {
-    "PurchaseOrder.Header"
+    "hana002.db.data::PurchaseOrder.Header"
 	  as "POHeader" navigates ("Items" as "POItem");
 
-	"PurchaseOrder.Item"
+	"hana002.db.data::PurchaseOrder.Item"
 	  as "POItem";
 
 	association "Items" principal  "POHeader"("PURCHASEORDERID")
